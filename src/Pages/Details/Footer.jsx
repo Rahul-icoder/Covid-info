@@ -3,7 +3,6 @@ import Styled from 'styled-components';
 
 const Foot = Styled.div`
 	display:flex;
-
 	justify-content:center;
 	align-items:center;
 	height:30px;

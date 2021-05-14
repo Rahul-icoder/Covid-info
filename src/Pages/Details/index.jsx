@@ -33,7 +33,11 @@ const FlexSection = Styled.div`
 	justify-content:center;
 	align-items:center;
 	height:100vh;
-	background-color:#1A1A1E
+	background-color:#1A1A1E;
+	h2{
+ 		text-align:center;
+ 		color:tomato;
+ 	}
 `
 let BASE_URL = `https://www.mohfw.gov.in/data/datanew.json`
 function Details() {
@@ -57,6 +61,7 @@ function Details() {
 						}
 					</Select>
 				</div>
+				<h2>Covid-19 Tracker</h2>
 				<SystemInfo Info={covidData}/>
 				<Footer/>
 			</Div>

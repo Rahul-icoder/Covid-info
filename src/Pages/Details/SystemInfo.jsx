@@ -6,7 +6,7 @@ const InfoDiv = Styled.div`
 	justify-content:space-between;
 	align-items:center;
 	padding:0.7rem;	
-	height:300px;
+	height:237px;
 `;
 
 
@@ -17,7 +17,7 @@ const Flex = Styled.div`
 	color:#C5CBE3;
 	p{
 		font-size:1.4rem;
-		color:#dcdcbb;
+		color: #1ecdcd;
 	}
 `
 
