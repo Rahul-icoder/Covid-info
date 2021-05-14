@@ -1,15 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Styled from "styled-components";
 import SystemInfo from "./SystemInfo";
-import Footer from "./Footer"
+import Footer from "./Footer";
+import FetchData from "../FetchData";
 
 const Div = Styled.div`
 	background-color:black;
 	color:white;
-	height:60vh;
-	width:60%;
+	height:400px;
+	width:300px;
  	border-radius:5px;
+ 	.form-section{
+ 		display:flex;
+ 		justify-content:center;
+ 	}
 `;
+
+
+const Select = Styled.select`
+	width:300px;
+	padding:0.7rem;
+	font-size:1rem;
+	.option{
+		width:280px;
+		padding:0.7rem;
+		font-size:0.9rem
+	}
+`
 
 const FlexSection = Styled.div`
 	display:flex;
@@ -18,24 +35,29 @@ const FlexSection = Styled.div`
 	height:100vh;
 	background-color:#1A1A1E
 `
-
+let BASE_URL = `https://www.mohfw.gov.in/data/datanew.json`
 function Details() {
-	const [systemInfo, setSystemInfo] = useState(null);
-	useEffect(() => {
-		function FetchDetails(){
-			fetch("http://localhost:5000/api/details")
-			.then((res) => res.json())
-			.then((data) => setSystemInfo(data))
-			.catch((err) => console.log(err.message));
+	const [data] = FetchData(BASE_URL);
+	const [serialNo,setSerialNo] = useState("11111");
+	const [covidData,setCovidData] = useState();
+	useEffect(()=>{
+		if(data){
+			let filterData = data.filter(item=>item.sno===serialNo);
+			setCovidData(filterData[0]);
 		}
-		FetchDetails();
-	}, []);
-
-	console.log(systemInfo);
+	},[serialNo,data])
 	return (
 		<FlexSection>
 			<Div>
-				{systemInfo && <SystemInfo Info={systemInfo}/>}
+				<div className="form-section">
+					<Select onChange={(e)=>setSerialNo(e.target.value)} value={serialNo} onmousewheel="return false">
+						<option className="option" value="11111">All</option>
+						{
+							data?.map(state=> <option key={state.sno} className="option" value={state.sno}>{state.state_name}</option>)
+						}
+					</Select>
+				</div>
+				<SystemInfo Info={covidData}/>
 				<Footer/>
 			</Div>
 		</FlexSection>
